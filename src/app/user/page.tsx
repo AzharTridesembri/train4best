@@ -13,7 +13,7 @@ interface User {
 }
 
 const UserPage = () => {
-  const users: User[] = [
+  const [users, setUsers] = useState<User[]>([
     { no: 1, username: 'Sandero Taeil Ishara', idUser: 'S0848T', jobTitle: 'Programming' },
     { no: 2, username: 'Mikael Ferdinand', idUser: 'S0848T', jobTitle: 'Marketing Specialist' },
     { no: 3, username: 'Swara Ajeng Mahesa', idUser: 'S0848T', jobTitle: 'Sales Manager' },
@@ -29,7 +29,7 @@ const UserPage = () => {
     { no: 13, username: 'Citra Anugerah', idUser: 'S0848T', jobTitle: 'Programming' },
     { no: 14, username: 'Dywantara Suroso', idUser: 'S0848T', jobTitle: 'Financial Analist' },
     { no: 15, username: 'Citra Anugerah', idUser: 'S0848T', jobTitle: 'Programming' },
-  ]
+  ])
 
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedJobTitle, setSelectedJobTitle] = useState('all')
@@ -90,8 +90,13 @@ const UserPage = () => {
 
   const handleEditSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle edit form submission logic here
+    if (selectedUser) {
+      setUsers(prevUsers => prevUsers.map(user => 
+        user.no === selectedUser.no ? { ...selectedUser, ...newUser } : user
+      ))
+    }
     setIsEditModalOpen(false)
+    setSelectedUser(null)
     setNewUser({
       username: '',
       idUser: '',
