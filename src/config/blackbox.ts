@@ -1,0 +1,1 @@
+export const BLACKBOX_API_KEY = process.env.NEXT_PUBLIC_BLACKBOX_API_KEY || '' 
