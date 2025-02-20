@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
-import Footer from './Footer';
+// import Footer from './Footer'; tidak terpakai
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,7 +17,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           {children}
         </main>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
