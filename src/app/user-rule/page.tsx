@@ -268,7 +268,7 @@ interface UserRule {
   status: 'Active' | 'Inactive';
 }
 
-  
+
 const userRulesData: UserRule[] = [
   { no: 1, roleName: 'Super Admin', description: 'Full access to all features', status: 'Active' },
   { no: 2, roleName: 'Admin', description: 'Manage users and content', status: 'Active' },
@@ -278,7 +278,7 @@ const userRulesData: UserRule[] = [
 ];
 
 const UserRulePage = () => {
-  const [userRules, setUserRules] = useState<UserRule[]>(userRulesData);
+  const [userRules] = useState<UserRule[]>(userRulesData);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRule, setSelectedRule] = useState<UserRule | null>(null);
 
