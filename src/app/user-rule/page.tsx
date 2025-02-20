@@ -268,37 +268,22 @@ interface UserRule {
   status: 'Active' | 'Inactive';
 }
 
-const UserRulePage = () => {
-  const userRules: UserRule[] = [
-    { no: 1, roleName: 'Super Admin', description: 'Full access to all features', status: 'Active' },
-    { no: 2, roleName: 'Admin', description: 'Manage users and content', status: 'Active' },
-    { no: 3, roleName: 'Manager', description: 'View reports and manage team', status: 'Active' },
-    { no: 4, roleName: 'Staff', description: 'Basic access to system', status: 'Active' },
-    { no: 5, roleName: 'Guest', description: 'Limited view access', status: 'Inactive' },
-  ];
+const userRulesData: UserRule[] = [
+  { no: 1, roleName: 'Super Admin', description: 'Full access to all features', status: 'Active' },
+  { no: 2, roleName: 'Admin', description: 'Manage users and content', status: 'Active' },
+  { no: 3, roleName: 'Manager', description: 'View reports and manage team', status: 'Active' },
+  { no: 4, roleName: 'Staff', description: 'Basic access to system', status: 'Active' },
+  { no: 5, roleName: 'Guest', description: 'Limited view access', status: 'Inactive' },
+];
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const UserRulePage = () => {
+  const [userRules, setUserRules] = useState<UserRule[]>(userRulesData);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedRule, setSelectedRule] = useState<UserRule | null>(null);
-  const [newRule, setNewRule] = useState<UserRule>({
-    no: 0,
-    roleName: '',
-    description: '',
-    status: 'Active',
-  });
 
   const handleEditClick = (rule: UserRule) => {
     setSelectedRule(rule);
-    setNewRule(rule);
     setIsEditModalOpen(true);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setNewRule(prev => ({
-      ...prev,
-      [name]: value,
-    }));
   };
 
   return (
@@ -308,20 +293,6 @@ const UserRulePage = () => {
         <Sidebar />
         <div className="flex-1 ml-64 p-6">
           <h1 className="text-2xl text-gray-700 mb-4">User Rules</h1>
-
-          <div className="flex justify-between mb-4">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-blue-700 text-white px-4 py-2 rounded"
-            >
-              Add New Rule
-            </button>
-            <input
-              type="text"
-              placeholder="Search..."
-              className="px-4 py-2 border rounded-lg"
-            />
-          </div>
 
           <table className="w-full bg-white rounded-lg shadow-md">
             <thead>
@@ -349,79 +320,40 @@ const UserRulePage = () => {
                     </span>
                   </td>
                   <td className="p-3">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleEditClick(rule)}
-                        className="text-blue-600 hover:text-blue-800"
-                      >
-                        Edit
-                      </button>
-                      <button className="text-red-500 hover:text-red-700">Delete</button>
-                    </div>
+                    <button
+                      onClick={() => handleEditClick(rule)}
+                      className="text-blue-600 hover:text-blue-800"
+                    >
+                      Edit
+                    </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          {isEditModalOpen && (
+          {isEditModalOpen && selectedRule && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
               <div className="bg-white p-6 rounded-lg w-96">
                 <h2 className="text-xl font-semibold mb-4 text-gray-700">Edit Rule</h2>
-                <form>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 mb-2">Role Name</label>
-                    <input
-                      type="text"
-                      name="roleName"
-                      value={newRule.roleName}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border rounded text-gray-700"
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 mb-2">Description</label>
-                    <input
-                      type="text"
-                      name="description"
-                      value={newRule.description}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border rounded text-gray-700"
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 mb-2">Status</label>
-                    <select
-                      name="status"
-                      value={newRule.status}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border rounded text-gray-700"
-                    >
-                      <option value="Active">Active</option>
-                      <option value="Inactive">Inactive</option>
-                    </select>
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setIsEditModalOpen(false)}
-                      className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800"
-                    >
-                      Save Changes
-                    </button>
-                  </div>
-                </form>
+                <div>
+                  <p><strong>Role Name:</strong> {selectedRule.roleName}</p>
+                  <p><strong>Description:</strong> {selectedRule.description}</p>
+                  <p><strong>Status:</strong> {selectedRule.status}</p>
+                </div>
+                <div className="flex justify-end gap-2 mt-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsEditModalOpen(false)}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           )}
+
         </div>
       </div>
     </div>
@@ -429,3 +361,5 @@ const UserRulePage = () => {
 };
 
 export default UserRulePage;
+
+
