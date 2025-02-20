@@ -1,0 +1,1 @@
+export const DEEPSEEK_API_KEY = process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY || '' 
