@@ -80,7 +80,7 @@ const UserRulePage = () => {
           <Sidebar />
         </div>
         <div className="flex-1 ml-64 p-6">
-          <h1 className="text-2xl text-gray-700 mb-4">User Rules</h1>
+          <h1 className="text-2xl text-gray-700 mb-4">ilham belum cebok</h1>
           
           <div className="flex justify-between mb-4">
             <button 
