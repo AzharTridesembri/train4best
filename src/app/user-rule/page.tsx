@@ -268,6 +268,7 @@ interface UserRule {
   status: 'Active' | 'Inactive';
 }
 
+  
 const userRulesData: UserRule[] = [
   { no: 1, roleName: 'Super Admin', description: 'Full access to all features', status: 'Active' },
   { no: 2, roleName: 'Admin', description: 'Manage users and content', status: 'Active' },

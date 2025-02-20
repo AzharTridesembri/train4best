@@ -272,64 +272,29 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/common/Navbar';
 import Sidebar from '@/components/common/Sidebar';
-import Pagination from '@/components/common/Pagination';
 
-interface UserType {
+interface UserRule {
   no: number;
-  idUsertype: string;
-  usertype: string;
+  roleName: string;
+  description: string;
+  status: 'Active' | 'Inactive';
 }
 
-const UserPage = () => {
-  const userTypes: UserType[] = [
-    { no: 1, idUsertype: 'UT001', usertype: 'Admin' },
-    { no: 2, idUsertype: 'UT002', usertype: 'Instructor' },
-    { no: 3, idUsertype: 'UT003', usertype: 'Student' },
-    { no: 4, idUsertype: 'UT004', usertype: 'Staff' },
-    { no: 5, idUsertype: 'UT005', usertype: 'Manager' },
-    { no: 6, idUsertype: 'UT006', usertype: 'Supervisor' },
-    { no: 7, idUsertype: 'UT007', usertype: 'Coordinator' },
-    { no: 8, idUsertype: 'UT008', usertype: 'Assistant' },
-    { no: 9, idUsertype: 'UT009', usertype: 'Guest' },
-    { no: 10, idUsertype: 'UT010', usertype: 'Viewer' },
-  ];
+const userRulesData: UserRule[] = [
+  { no: 1, roleName: 'Super Admin', description: 'Full access to all features', status: 'Active' },
+  { no: 2, roleName: 'Admin', description: 'Manage users and content', status: 'Active' },
+  { no: 3, roleName: 'Manager', description: 'View reports and manage team', status: 'Active' },
+  { no: 4, roleName: 'Staff', description: 'Basic access to system', status: 'Active' },
+  { no: 5, roleName: 'Guest', description: 'Limited view access', status: 'Inactive' },
+];
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedUsertype, setSelectedUsertype] = useState('all');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const UserRulePage = () => {
+  const [userRules] = useState<UserRule[]>(userRulesData);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [newUser, setNewUser] = useState<UserType>({
-    no: 0,
-    idUsertype: '',
-    usertype: '',
-  });
+  const [selectedRule, setSelectedRule] = useState<UserRule | null>(null);
 
-  const usertypes = ['all', ...new Set(userTypes.map(user => user.usertype))];
-
-  const filteredUsers = selectedUsertype === 'all'
-    ? userTypes
-    : userTypes.filter(user => user.usertype === selectedUsertype);
-
-  const totalPages = Math.ceil(filteredUsers.length / 10);
-  const indexOfLastItem = currentPage * 10;
-  const indexOfFirstItem = indexOfLastItem - 10;
-  const currentUsers = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-
-  const handleUsertypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedUsertype(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setNewUser(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleEditClick = (user: UserType) => {
-    setNewUser(user);
+  const handleEditClick = (rule: UserRule) => {
+    setSelectedRule(rule);
     setIsEditModalOpen(true);
   };
 
@@ -339,46 +304,36 @@ const UserPage = () => {
       <div className="flex flex-1 pt-24">
         <Sidebar />
         <div className="flex-1 ml-64 p-6">
-          <h1 className="text-2xl text-gray-700 mb-4">UserType</h1>
-
-          <div className="flex justify-between mb-4">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-blue-700 text-white px-4 py-2 rounded"
-            >
-              Add New Usertype
-            </button>
-            <select
-              value={selectedUsertype}
-              onChange={handleUsertypeChange}
-              className="px-4 py-2 border rounded-lg"
-            >
-              {usertypes.map(type => (
-                <option key={type} value={type}>
-                  {type === 'all' ? 'All Usertypes' : type}
-                </option>
-              ))}
-            </select>
-          </div>
+          <h1 className="text-2xl text-gray-700 mb-4">User Rules</h1>
 
           <table className="w-full bg-white rounded-lg shadow-md">
             <thead>
               <tr className="border-b">
                 <th className="text-left p-3 text-gray-700">No</th>
-                <th className="text-left p-3 text-gray-700">ID Usertype</th>
-                <th className="text-left p-3 text-gray-700">Usertype</th>
+                <th className="text-left p-3 text-gray-700">Role Name</th>
+                <th className="text-left p-3 text-gray-700">Description</th>
+                <th className="text-left p-3 text-gray-700">Status</th>
                 <th className="text-left p-3 text-gray-700">Action</th>
               </tr>
             </thead>
             <tbody>
-              {currentUsers.map(user => (
-                <tr key={user.no} className="border-b hover:bg-gray-50">
-                  <td className="p-3 text-gray-700">{user.no}</td>
-                  <td className="p-3 text-gray-700">{user.idUsertype}</td>
-                  <td className="p-3 text-gray-700">{user.usertype}</td>
+              {userRules.map(rule => (
+                <tr key={rule.no} className="border-b hover:bg-gray-50">
+                  <td className="p-3 text-gray-700">{rule.no}</td>
+                  <td className="p-3 text-gray-700">{rule.roleName}</td>
+                  <td className="p-3 text-gray-700">{rule.description}</td>
+                  <td className="p-3">
+                    <span
+                      className={`px-2 py-1 rounded text-sm ${
+                        rule.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      }`}
+                    >
+                      {rule.status}
+                    </span>
+                  </td>
                   <td className="p-3">
                     <button
-                      onClick={() => handleEditClick(user)}
+                      onClick={() => handleEditClick(rule)}
                       className="text-blue-600 hover:text-blue-800"
                     >
                       Edit
@@ -389,58 +344,33 @@ const UserPage = () => {
             </tbody>
           </table>
 
-          <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
-
-          {isEditModalOpen && (
+          {isEditModalOpen && selectedRule && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
               <div className="bg-white p-6 rounded-lg w-96">
-                <h2 className="text-xl font-semibold mb-4">Edit Usertype</h2>
-                <form>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 mb-2">ID Usertype</label>
-                    <input
-                      type="text"
-                      name="idUsertype"
-                      value={newUser.idUsertype}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border rounded"
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <label className="block text-gray-700 mb-2">Usertype</label>
-                    <input
-                      type="text"
-                      name="usertype"
-                      value={newUser.usertype}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border rounded"
-                      required
-                    />
-                  </div>
-                  <div className="flex justify-end gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setIsEditModalOpen(false)}
-                      className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800"
-                    >
-                      Save Changes
-                    </button>
-                  </div>
-                </form>
+                <h2 className="text-xl font-semibold mb-4 text-gray-700">Edit Rule</h2>
+                <div>
+                  <p><strong>Role Name:</strong> {selectedRule.roleName}</p>
+                  <p><strong>Description:</strong> {selectedRule.description}</p>
+                  <p><strong>Status:</strong> {selectedRule.status}</p>
+                </div>
+                <div className="flex justify-end gap-2 mt-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsEditModalOpen(false)}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           )}
+
         </div>
       </div>
     </div>
   );
 };
 
-export default UserPage;
+export default UserRulePage;
+
