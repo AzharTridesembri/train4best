@@ -260,7 +260,7 @@ const UserRulePage = () => {
   )
 }
 
-// export default UserRulePage 
+export default UserRulePage 
 
 
 // 'use client';
