@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Navbar from '@/components/common/Navbar'
 import Sidebar from '@/components/common/Sidebar'
 import Pagination from '@/components/common/Pagination'
+import type { ReactElement } from 'react'
 
 interface User {
   no: number;
@@ -11,8 +12,8 @@ interface User {
   usertype: string;
 }
 
-const UserPage = () => {
-  const usertype = [
+const UserPage = (): ReactElement => {
+  const usertype: User[] = [
     { no: 1, idUsertype: 'UT001', usertype: 'Admin' },
     { no: 2, idUsertype: 'UT002', usertype: 'Instructor' },
     { no: 3, idUsertype: 'UT003', usertype: 'Student' },
