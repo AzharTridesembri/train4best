@@ -15,7 +15,7 @@ const Navbar: FC = () => {
           {/* Logo dan Brand */}
           <div className="flex items-center space-x-8">
             <Link href="/" className="flex items-center space-x-2">
-              <Image src="/img/logoT4B.png" alt="Train4best Logo" width={120} height={20} />
+              <Image src="img/logoT4B.png" alt="Train4best Logo" width={120} height={20} />
             </Link>
             
             {/* Navigation Links */}
