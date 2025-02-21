@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Navbar from '@/components/common/Navbar'
 import Sidebar from '@/components/common/Sidebar'
-import type { JSX } from 'react'
+import type { ReactElement } from 'react'
 
 interface Rule {
   no: number;
@@ -12,7 +12,7 @@ interface Rule {
   status: 'Active' | 'Inactive';
 }
 
-const UserRulePage = () => {
+export default function UserRulePage(): ReactElement {
   const userRules: Rule[] = [
     { no: 1, roleName: 'Super Admin', description: 'Full access to all features', status: 'Active' },
     { no: 2, roleName: 'Admin', description: 'Manage users and content', status: 'Active' },
@@ -21,19 +21,15 @@ const UserRulePage = () => {
     { no: 5, roleName: 'Guest', description: 'Limited view access', status: 'Inactive' },
   ]
 
-  const [currentPage, setCurrentPage] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const [selectedRule, setSelectedRule] = useState<Rule | null>(null)
   const [newRule, setNewRule] = useState({
     roleName: '',
     description: '',
     status: 'Active'
   })
-  const itemsPerPage = 10
 
   const handleEditClick = (rule: Rule) => {
-    setSelectedRule(rule)
     setNewRule({
       roleName: rule.roleName,
       description: rule.description,
@@ -258,117 +254,5 @@ const UserRulePage = () => {
       </div>
     </div>
   )
-}
-
-// export default UserRulePage 
-
-
-// 'use client';
-
-// import React, { useState } from 'react';
-// import Navbar from '@/components/common/Navbar';
-// import Sidebar from '@/components/common/Sidebar';
-
-// interface UserRule {
-//   no: number;
-//   roleName: string;
-//   description: string;
-//   status: 'Active' | 'Inactive';
-// }
-
-
-// const userRulesData: UserRule[] = [
-//   { no: 1, roleName: 'Super Admin', description: 'Full access to all features', status: 'Active' },
-//   { no: 2, roleName: 'Admin', description: 'Manage users and content', status: 'Active' },
-//   { no: 3, roleName: 'Manager', description: 'View reports and manage team', status: 'Active' },
-//   { no: 4, roleName: 'Staff', description: 'Basic access to system', status: 'Active' },
-//   { no: 5, roleName: 'Guest', description: 'Limited view access', status: 'Inactive' },
-// ];
-
-// const UserRulePage = () => {
-//   const [userRules] = useState<UserRule[]>(userRulesData);
-//   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-//   const [selectedRule, setSelectedRule] = useState<UserRule | null>(null);
-
-//   const handleEditClick = (rule: UserRule) => {
-//     setSelectedRule(rule);
-//     setIsEditModalOpen(true);
-//   };
-
-//   return (
-//     <div className="min-h-screen flex flex-col">
-//       <Navbar />
-//       <div className="flex flex-1 pt-24">
-//         <Sidebar />
-//         <div className="flex-1 ml-64 p-6">
-//           <h1 className="text-2xl text-gray-700 mb-4">User Rules</h1>
-
-//           <table className="w-full bg-white rounded-lg shadow-md">
-//             <thead>
-//               <tr className="border-b">
-//                 <th className="text-left p-3 text-gray-700">No</th>
-//                 <th className="text-left p-3 text-gray-700">Role Name</th>
-//                 <th className="text-left p-3 text-gray-700">Description</th>
-//                 <th className="text-left p-3 text-gray-700">Status</th>
-//                 <th className="text-left p-3 text-gray-700">Action</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {userRules.map(rule => (
-//                 <tr key={rule.no} className="border-b hover:bg-gray-50">
-//                   <td className="p-3 text-gray-700">{rule.no}</td>
-//                   <td className="p-3 text-gray-700">{rule.roleName}</td>
-//                   <td className="p-3 text-gray-700">{rule.description}</td>
-//                   <td className="p-3">
-//                     <span
-//                       className={`px-2 py-1 rounded text-sm ${
-//                         rule.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-//                       }`}
-//                     >
-//                       {rule.status}
-//                     </span>
-//                   </td>
-//                   <td className="p-3">
-//                     <button
-//                       onClick={() => handleEditClick(rule)}
-//                       className="text-blue-600 hover:text-blue-800"
-//                     >
-//                       Edit
-//                     </button>
-//                   </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-
-//           {isEditModalOpen && selectedRule && (
-//             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-//               <div className="bg-white p-6 rounded-lg w-96">
-//                 <h2 className="text-xl font-semibold mb-4 text-gray-700">Edit Rule</h2>
-//                 <div>
-//                   <p><strong>Role Name:</strong> {selectedRule.roleName}</p>
-//                   <p><strong>Description:</strong> {selectedRule.description}</p>
-//                   <p><strong>Status:</strong> {selectedRule.status}</p>
-//                 </div>
-//                 <div className="flex justify-end gap-2 mt-4">
-//                   <button
-//                     type="button"
-//                     onClick={() => setIsEditModalOpen(false)}
-//                     className="px-4 py-2 text-gray-600 hover:text-gray-800"
-//                   >
-//                     Close
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-//           )}
-
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UserRulePage;
-
+} 
 
