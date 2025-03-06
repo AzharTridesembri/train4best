@@ -59,7 +59,7 @@ const CertificatePage = () => {
     { header: "Issue Date", accessor: "issueDate" },
     {
       header: "Action",
-      accessor: (data: Certificate) => (
+      accessor: () => (
         <div className="flex gap-2">
           <button className="flex items-center gap-1 text-gray-600 hover:text-gray-800">
             <Printer size={20} /> Print
