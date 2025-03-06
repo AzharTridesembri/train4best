@@ -13,7 +13,7 @@ const Navbar: FC<NavbarProps> = ({ onMobileMenuClick }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
-    <nav className="bg-[#362d98] text-white py-3 mt-4 mx-4 rounded-2xl shadow-lg">
+    <nav className="sticky top-0 z-50 bg-white border-b shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Bagian kiri - Menu & Logo */}

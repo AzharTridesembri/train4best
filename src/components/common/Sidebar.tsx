@@ -153,7 +153,7 @@ const Sidebar: FC<SidebarProps> = ({ isMobileOpen, onMobileClose }) => {
           </div>
 
           {/* Menu Items dengan custom scrollbar */}
-          <div className="flex-1 overflow-y-auto px-4 py-2 scrollbar-hide">
+          <div className="flex-1 overflow-y-auto scrollbar-hide px-4 py-2">
             <div className="space-y-2 pb-24">
               {menuItems.map((item) => (
                 <div key={item.title} className="space-y-2">
