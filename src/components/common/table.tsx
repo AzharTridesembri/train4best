@@ -35,35 +35,37 @@ export default function Table<T>({
   };
 
   return (
-    <div className="overflow-x-auto bg-white rounded-lg shadow">
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="bg-gray-50 border-b">
-            {columns.map((column, index) => (
-              <th
-                key={index}
-                className={`p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${column.className}`}
-              >
-                {column.header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200">
-          {data.map((item, rowIndex) => (
-            <tr key={rowIndex} className="hover:bg-gray-50">
-              {columns.map((column, colIndex) => (
-                <td
-                  key={colIndex}
-                  className={`p-3 text-sm text-gray-500 ${column.className}`}
+    <div className="max-h-[calc(100vh-300px)] overflow-y-auto bg-white rounded-lg shadow scrollbar-hide">
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead className="sticky top-0 bg-gray-50 z-10">
+            <tr className="border-b">
+              {columns.map((column, index) => (
+                <th
+                  key={index}
+                  className={`p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${column.className}`}
                 >
-                  {renderCell(item, column)}
-                </td>
+                  {column.header}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {data.map((item, rowIndex) => (
+              <tr key={rowIndex} className="hover:bg-gray-50">
+                {columns.map((column, colIndex) => (
+                  <td
+                    key={colIndex}
+                    className={`p-3 text-sm text-gray-500 ${column.className}`}
+                  >
+                    {renderCell(item, column)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Pagination */}
       {onPageChange && (
