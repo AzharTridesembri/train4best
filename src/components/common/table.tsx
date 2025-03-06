@@ -42,7 +42,7 @@ export default function Table<T>({
             {columns.map((column, index) => (
               <th
                 key={index}
-                className={`p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${column.className}`}
+                className={`p-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider ${column.className}`}
               >
                 {column.header}
               </th>
@@ -55,7 +55,7 @@ export default function Table<T>({
               {columns.map((column, colIndex) => (
                 <td
                   key={colIndex}
-                  className={`p-3 text-sm text-gray-500 ${column.className}`}
+                  className={`p-3 text-base text-gray-500 ${column.className}`}
                 >
                   {renderCell(item, column)}
                 </td>
@@ -73,14 +73,14 @@ export default function Table<T>({
             <button
               onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
               disabled={currentPage === 1}
-              className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
             >
               Previous
             </button>
             <button
               onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
             >
               Next
             </button>
@@ -89,7 +89,7 @@ export default function Table<T>({
           {/* Desktop pagination */}
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm text-gray-700">
+              <p className="text-base text-gray-700">
                 Showing{" "}
                 <span className="font-medium">
                   {(currentPage - 1) * itemsPerPage + 1}
@@ -106,7 +106,7 @@ export default function Table<T>({
                 <button
                   onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
                   disabled={currentPage === 1}
-                  className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-base font-medium text-gray-500 hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 >
                   Previous
                 </button>
@@ -114,7 +114,7 @@ export default function Table<T>({
                   <button
                     key={i + 1}
                     onClick={() => onPageChange(i + 1)}
-                    className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                    className={`relative inline-flex items-center px-4 py-2 border text-base font-medium ${
                       currentPage === i + 1
                         ? "z-10 bg-indigo-50 border-indigo-500 text-indigo-600"
                         : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
@@ -126,7 +126,7 @@ export default function Table<T>({
                 <button
                   onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-base font-medium text-gray-500 hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 >
                   Next
                 </button>
