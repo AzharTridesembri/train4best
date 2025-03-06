@@ -20,7 +20,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     <div className="min-h-screen flex flex-col">
       <Navbar 
         onMobileMenuClick={handleMobileOpen} 
-        toggleSidebar={handleMobileOpen}
       />
       <div className="flex flex-1 relative">
         <Sidebar
