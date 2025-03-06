@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Table from "@/components/common/table";
+import Layout from "@/components/common/Layout";
 
 interface Payment {
   id: number;

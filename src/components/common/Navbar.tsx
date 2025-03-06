@@ -6,11 +6,10 @@ import Image from "next/image";
 import { Bell, LogOut, User, UserPlus, Key, HelpCircle } from "lucide-react";
 
 interface NavbarProps {
-  toggleSidebar: () => void;
   onMobileMenuClick: () => void;
 }
 
-const Navbar: FC<NavbarProps> = ({ toggleSidebar, onMobileMenuClick }) => {
+const Navbar: FC<NavbarProps> = ({ onMobileMenuClick }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
